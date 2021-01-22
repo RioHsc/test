@@ -1,0 +1,25 @@
+        PackageManager pm = getPackageManager();
+
+        ArrayList<PackageInfo> thirdPartyAppList = new ArrayList<>();
+
+        List<PackageInfo> pkgList = pm.getInstalledPackages(0);
+        if (pkgList != null && pkgList.size() > 0) {
+            for (PackageInfo pi : pkgList) {
+                Log.e(TAG, "pkg name: " + pi.packageName);
+                Log.e(TAG, "dir: " + pi.applicationInfo.publicSourceDir);
+                if (pi.applicationInfo.publicSourceDir.startsWith("/data/app/")
+                        && !pi.packageName.startsWith("com.smartisanos.")) {
+                    thirdPartyAppList.add(pi);
+                }
+            }
+        } else {
+            Log.e(TAG, "No packages");
+        }
+        
+        if (thirdPartyAppList.size() > 0) {
+            Log.e(TAG, "====================================================");
+            for (PackageInfo pi: thirdPartyAppList) {
+                //Log.e(TAG, "pkg name: " + pi.packageName);
+                Log.e(TAG, "dir: " + pi.applicationInfo.publicSourceDir);
+            }
+        }
